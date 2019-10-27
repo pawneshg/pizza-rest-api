@@ -133,4 +133,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'pizza_api.UserProfile'
+#AUTH_USER_MODEL = 'pizza_api.UserProfile'

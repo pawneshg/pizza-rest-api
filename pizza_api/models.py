@@ -1,57 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.models import BaseUserManager
+from django.core.validators import RegexValidator
 
-# Create your models here.
-class UserProfileManager(BaseUserManager):
-    """Manager for user profiles."""
+class ObjectTracking(models.Model):
+    """Basic database model."""
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
-    def create_user(self, email, name, password=None):
-        """create a new user profile."""
-        if not email:
-            raise ValueError("User must have email address.")
-        email = self.normalize_email(email)
-        user = self.model(email=email, name=name)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
+    class Meta:
+        abstract = True
+        ordering = ('-created_at',)
 
-    def create_superuser(self, email, name, password):
-        """New super user with given details."""
-        user = self.create_user(email, name, password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
-        return user
+class OrderManager(models.Manager):
+    def get_queryset(self):
+        return super().get_queryset()
+
+    def all_objects(self):
+        return super().get_queryset()
 
 
-class UserProfile(AbstractBaseUser, PermissionsMixin):
-    """Database model for users in the system"""
-    email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-
-    objects = UserProfileManager()
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name']
-
-    def get_full_name(self):
-        """reterive full name of the user."""
-        return self.name
-
-    def get_short_name(self):
-        """Retrieve short name of user."""
-        return self.name
-
-    def __str__(self):
-       """string representation"""
-       return self.email
-
-class PizzaOrderDetails(models.Model):
+class PizzaOrderDetails(ObjectTracking):
     """Database model for order in the system."""
     PIZZA_SIZE = (
        ('regular', 'Regular'),
@@ -59,12 +27,20 @@ class PizzaOrderDetails(models.Model):
        ('large', 'Large')
     )
     order_id = models.AutoField(primary_key=True)
-    created = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField('Euro amount', max_digits=8, decimal_places=2, blank=True, null=True)
-    #user = models.ForeignKey(User, default=1, on_delete='cascade')
     flavours = models.CharField(max_length=20, blank=False, default='')
-    count = models.IntegerField() # add validation Todo
+    count = models.PositiveIntegerField() # add validation Todo
     size = models.CharField(choices=PIZZA_SIZE, default='regular', max_length=20)
-    delivery_status = models.CharField(max_length=20)
-    tracking_info = models.TextField(blank=True, null=True)
+    delivery_status = models.CharField(max_length=20, default='pending')
+    tracking_url = models.URLField(max_length=250)
+    customer_name = models.CharField(max_length=100)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
+                                 message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    customer_phone_number = models.CharField(validators=[phone_regex], max_length=17, blank=True)
+
+    objects = OrderManager()
+
+    def __str__(self):
+        return self.description

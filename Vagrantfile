@@ -74,11 +74,48 @@ Vagrant.configure("2") do |config|
     systemctl disable apt-daily.timer
 
     sudo apt-get update
-    sudo apt-get install -y python3-venv zip
+    sudo locale-gen en_US.UTF-8
+    sudo update-locale LANG=en_US.UTF-8
+    sudo apt-get install -y python3-venv zip python-pip python-dev libpq-dev
+    # sudo apt-get install -y  postgresql postgresql-contrib
+    # # Create the user to access the db. (vagrant sample)
+    # sudo -u postgres psql -c "CREATE USER vagrant WITH SUPERUSER CREATEDB ENCRYPTED PASSWORD 'vagrant'"
+    # # Change the port
+    # sudo sed -i "s/port = 5433/port = 5432/" /etc/postgresql/10/main/postgresql.conf
+    # # Restart de DB
+    # sudo /etc/init.d/postgresql restart
+    ## If you get a locale error follow those instructions
+
+    # error message: PG::InvalidParameterValue: ERROR: encoding "UTF8" does not match locale "en_US"
+
+    # generate the locales
+    # sudo locale-gen en_US.UTF-8
+    # sudo update-locale LANG=en_US.UTF-8
+    #
+    # # drop and recreate the default cluster
+    # sudo pg_dropcluster --stop 10 main
+    # sudo pg_createcluster --start -e UTF-8 10 main
+
+    # recreate our database user
+    #sudo -u postgres psql -c "CREATE USER vagrant WITH SUPERUSER CREATEDB ENCRYPTED PASSWORD 'vagrant'"
+    # sleep 5
+    # psql postgres -c "CREATE DATABASE ORDERS WITH ENCODING 'UTF8'"
+
+
+
     touch /home/vagrant/.bash_aliases
     if ! grep -q PYTHON_ALIAS_ADDED /home/vagrant/.bash_aliases; then
       echo "# PYTHON_ALIAS_ADDED" >> /home/vagrant/.bash_aliases
       echo "alias python='python3'" >> /home/vagrant/.bash_aliases
     fi
+    # source /home/vagrant/.bash_aliases
+    # cd /vagrant
+    # python -m venv ~/env
+    # source ~/env/bin/activate
+    # pip install wheel
+    # pip install -r requirements.txt
+    # python manage.py makemigrations
+    # python manage.py migrate
+    # python manage.py runserver 0.0.0.0:8000
     SHELL
 end

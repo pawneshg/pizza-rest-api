@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,9 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
-#    'rest_framework_swagger',
     'pizza_api',
 ]
 
@@ -73,6 +74,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pizza_project.wsgi.application'
 
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases

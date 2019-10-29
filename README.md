@@ -1,6 +1,7 @@
 # Pizza REST API
 
 Pizza Ordering REST API
+Demo Link : http://ec2-3-0-91-52.ap-southeast-1.compute.amazonaws.com/api/
 
 # Packages Used.
 - django ==2.2.4

@@ -25,7 +25,7 @@ SECRET_KEY = 'gxhfp@7lvnlitqkzv$fcea7i#n2!$_+5_0diykanqytek%j)4z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 # In Production update the hosts
 # ALLOWED_HOSTS = ['127.0.0.1']
 

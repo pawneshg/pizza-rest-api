@@ -7,9 +7,12 @@ PROJECT_GIT_URL='https://github.com/pawneshg/pizza-rest-api.git'
 PROJECT_BASE_PATH='/usr/local/apps/pizza-rest-api'
 
 echo "Installing dependencies..."
+sudo locale-gen en_US.UTF-8
+sudo update-locale LANG=en_US.UTF-8
 apt-get update
 sudo apt-get install -y python3-dev python3-venv sqlite python-pip supervisor nginx git
 
+echo "Installed dependencies.."
 # Create project directory
 mkdir -p $PROJECT_BASE_PATH
 git clone $PROJECT_GIT_URL $PROJECT_BASE_PATH

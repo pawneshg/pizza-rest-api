@@ -30,8 +30,8 @@ $PROJECT_BASE_PATH/env/bin/pip install uwsgi==2.0.18
 
 # Run migrations and collectstatic
 cd $PROJECT_BASE_PATH
-$PROJECT_BASE_PATH/env/bin/python manage.py migrate
-$PROJECT_BASE_PATH/env/bin/python manage.py collectstatic --noinput
+$PROJECT_BASE_PATH/env/bin/python3 manage.py migrate
+$PROJECT_BASE_PATH/env/bin/python3 manage.py collectstatic --noinput
 
 # Configure supervisor
 cp $PROJECT_BASE_PATH/cloud_deploy/supervisor_pizza_api.conf /etc/supervisor/conf.d/pizza_api.conf

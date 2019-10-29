@@ -2,7 +2,7 @@
 
 set -e
 
-PROJECT_GIT_URL = 'https://github.com/pawneshg/pizza-rest-api.git'
+PROJECT_GIT_URL='https://github.com/pawneshg/pizza-rest-api.git'
 # store project location
 PROJECT_BASE_PATH='/usr/local/apps/pizza-rest-api'
 

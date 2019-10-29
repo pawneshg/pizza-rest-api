@@ -3,3 +3,4 @@ djangorestframework==3.9.2
 #django-rest-swagger
 wheel
 django-filter
+psycopg2-binary==2.8.3

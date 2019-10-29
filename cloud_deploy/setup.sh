@@ -2,9 +2,9 @@
 
 set -e
 
-export PROJECT_GIT_URL='https://github.com/pawneshg/pizza-rest-api.git'
+PROJECT_GIT_URL='https://github.com/pawneshg/pizza-rest-api.git'
 # store project location
-export PROJECT_BASE_PATH='/usr/local/apps/pizza-rest-api'
+PROJECT_BASE_PATH='/usr/local/apps/pizza-rest-api'
 
 echo "Installing dependencies..."
 apt-get update

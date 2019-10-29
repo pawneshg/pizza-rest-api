@@ -18,15 +18,13 @@ class PizzaOrderSerializer(serializers.ModelSerializer):
             "size",
             "customer",
             "customer_phone_number",
-            "status",
-            "tracking_url"
+            "status"
 
         ]
         read_only_fields = ["order_id"]
 
     def create(self, validated_data):
         """Create the Order."""
-        validated_data.update({'tracking_url': 'https://trackmyorder.com'})
         order = PizzaOrderDetails.objects.create_order(validated_data)
         return order
 

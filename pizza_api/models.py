@@ -33,7 +33,6 @@ class PizzaOrderDetails(ObjectTracking):
     count = models.PositiveIntegerField()   #todo Quantity
     size = models.CharField(choices=PIZZA_SIZE, default='regular', max_length=20)
     status = models.CharField(choices=DELIVERY_STATUS, max_length=20, default='pending')
-    tracking_url = models.URLField(max_length=250)
     customer = models.CharField(max_length=100)
     phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$',
                                  message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")

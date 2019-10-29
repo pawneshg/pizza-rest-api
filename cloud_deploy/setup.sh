@@ -10,7 +10,8 @@ echo "Installing dependencies..."
 sudo locale-gen en_US.UTF-8
 sudo update-locale LANG=en_US.UTF-8
 apt-get update
-sudo apt-get install -y python3-dev python3-venv sqlite python-pip supervisor nginx git
+sudo apt-get install -y python3-dev sqlite python-pip python3-pip supervisor nginx git
+sudo apt-get install -y python3-venv
 
 echo "Installed dependencies.."
 # Create project directory
